@@ -20,7 +20,19 @@ class KeywordQueryEventListener(EventListener):
 
     def on_event(self, event, extension):
         items = []
-   
+
+        if event.get_argument() is None:
+            dt = datetime.datetime.now()
+            ts = str(int(dt.timestamp()))
+            items.append(ExtensionResultItem(
+                icon='images/icon.png',
+                name="Timestamp: " + ts,
+                description=dt.strftime('%Y-%m-%d %H:%M:%S'),
+                highlightable=False,
+                on_enter=CopyToClipboardAction(ts)
+            ))
+            return RenderResultListAction(items)
+
         utcDt = datetime.datetime.utcfromtimestamp(int(event.get_argument()))
         localDt = datetime.datetime.fromtimestamp(int(event.get_argument()))
 
