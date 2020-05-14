@@ -13,6 +13,20 @@
             "type": "keyword",
             "name": "Timestamp Keyword",
             "default_value": "ts"
+        },
+        {
+            "id": "local_format",
+            "type": "text",
+            "name": "Output Format (Local Time)",
+            "description": "Format used by strftime (https://strftime.org/)",
+            "default_value": "%Y-%m-%d %H:%M:%S"
+        },
+        {
+            "id": "utc_format",
+            "type": "text",
+            "name": "Output Format (UTC Time)",
+            "description": "Format used by strftime (https://strftime.org/)",
+            "default_value": "%Y-%m-%d %H:%M:%S"
         }
     ]
 }
