@@ -27,7 +27,7 @@ class KeywordQueryEventListener(EventListener):
             items.append(ExtensionResultItem(
                 icon='images/icon.png',
                 name="Timestamp: " + ts,
-                description=dt.strftime('%Y-%m-%d %H:%M:%S'),
+                description=dt.strftime(extension.preferences['local_format']),
                 highlightable=False,
                 on_enter=CopyToClipboardAction(ts)
             ))
@@ -36,8 +36,8 @@ class KeywordQueryEventListener(EventListener):
         utcDt = datetime.datetime.utcfromtimestamp(int(event.get_argument()))
         localDt = datetime.datetime.fromtimestamp(int(event.get_argument()))
 
-        formattedLocalDt = localDt.strftime('%Y-%m-%d %H:%M:%S')
-        formattedUtcDt = utcDt.strftime('%Y-%m-%d %H:%M:%S')
+        formattedLocalDt = localDt.strftime(extension.preferences['local_format'])
+        formattedUtcDt = utcDt.strftime(extension.preferences['utc_format'])
         items.append(ExtensionResultItem(
             icon='images/icon.png',
             name="Local Time: " + formattedLocalDt,
