@@ -33,14 +33,14 @@ class KeywordQueryEventListener(EventListener):
             ))
             return RenderResultListAction(items)
 
-        eventValue = event.get_argument()
+        timestamp = int(event.get_argument())
         description = "From seconds"
-        if len(eventValue) > 11:
-            eventValue = eventValue[0:10]
-            description = "From submultiple of a second"
+        if timestamp > 99999999999:
+            timestamp = timestamp/1000
+            description = "From milliseconds"
 
-        utcDt = datetime.datetime.utcfromtimestamp(int(eventValue))
-        localDt = datetime.datetime.fromtimestamp(int(eventValue))
+        utcDt = datetime.datetime.utcfromtimestamp(timestamp)
+        localDt = datetime.datetime.fromtimestamp(timestamp)
 
         formattedLocalDt = localDt.strftime('%Y-%m-%d %H:%M:%S')
         formattedUtcDt = utcDt.strftime('%Y-%m-%d %H:%M:%S')
