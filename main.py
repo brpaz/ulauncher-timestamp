@@ -33,14 +33,21 @@ class KeywordQueryEventListener(EventListener):
             ))
             return RenderResultListAction(items)
 
-        utcDt = datetime.datetime.utcfromtimestamp(int(event.get_argument()))
-        localDt = datetime.datetime.fromtimestamp(int(event.get_argument()))
+        eventValue = event.get_argument()
+        description = "From seconds"
+        if len(eventValue) > 11:
+            eventValue = eventValue[0:10]
+            description = "From submultiple of a second"
+
+        utcDt = datetime.datetime.utcfromtimestamp(int(eventValue))
+        localDt = datetime.datetime.fromtimestamp(int(eventValue))
 
         formattedLocalDt = localDt.strftime('%Y-%m-%d %H:%M:%S')
         formattedUtcDt = utcDt.strftime('%Y-%m-%d %H:%M:%S')
         items.append(ExtensionResultItem(
             icon='images/icon.png',
             name="Local Time: " + formattedLocalDt,
+            description=description,
             highlightable=False,
             on_enter=CopyToClipboardAction(formattedLocalDt)
         ))
@@ -48,6 +55,7 @@ class KeywordQueryEventListener(EventListener):
         items.append(ExtensionResultItem(
             icon='images/icon.png',
             name="UTC Time: " + formattedUtcDt,
+            description=description,
             highlightable=False,
             on_enter=CopyToClipboardAction(formattedUtcDt)
         ))
